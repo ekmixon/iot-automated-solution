@@ -49,7 +49,7 @@ def generate_macs(num_to_gen, mac_oui, mac_4_5_octets):
     mac_prefix = f'{mac_oui}:{mac_4_5_octets}'
     mac_list = []
 
-    for x in range(0, num_to_gen):
+    for x in range(num_to_gen):
         # generate hex value as 6th octet value for each mac address
         # using the sequence value will keep deterministic vs a random mac address
         # the if conditional is used to prepend a zero if x hex value is single digit
@@ -161,7 +161,7 @@ def iot_traffic(mapping_dict, broker_address):
 def on_message(client, userdata, msg):
     # topic = msg.topic
     m_decode = str(msg.payload.decode("utf-8", "ignore"))
-    print("Message received=" + m_decode)
+    print(f"Message received={m_decode}")
 
 
 # The callback for when the client receives a CONNACK response from the broker.
@@ -174,18 +174,17 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when the client disconnects from the broker.
 def on_disconnect(client, userdata, flags, rc=0):
-    print("Disconnected with code= " + str(rc))
+    print(f"Disconnected with code= {str(rc)}")
 
 
 # The callback for when the publish message was transmitted completely to the broker.
 def on_publish(client, userdata, result):
     print("data published \n")
-    pass
 
 
 # The callback for when the client has log information.def on_log(client, userdata, level, buf):
 def on_log(client, userdata, level, buf):
-    print("log " + buf)
+    print(f"log {buf}")
 
 
 @click.command()

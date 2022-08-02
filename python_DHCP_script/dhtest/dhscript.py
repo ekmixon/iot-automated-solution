@@ -24,11 +24,7 @@ with open('dhscript_log.txt', 'w') as f:
 
 # print_log(- prints the output to both stdout and file
 def print_log(msg, cmd=None):
-    if cmd is not None:
-        msg_full = msg + cmd + "\n"
-    else:
-        msg_full = msg + "\n"
-
+    msg_full = msg + cmd + "\n" if cmd is not None else msg + "\n"
     sys.stdout.write(msg_full)
     with open('dhscript_log.txt', 'a') as f:
         f.write(msg_full)
@@ -44,7 +40,7 @@ def write_log(msg):
 
 
 def run_dhtest(mac, arg_list, search_output):
-    cmd = "./dhtest -i eth0 -m " + mac + arg_list
+    cmd = f"./dhtest -i eth0 -m {mac}{arg_list}"
     print_log("=============================================================")
     print_log("Running command ", cmd)
     out = getoutput(cmd)
